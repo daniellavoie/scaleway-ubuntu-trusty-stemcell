@@ -23,6 +23,7 @@ resources:
     uri: {{github-lock-url}}
     branch: locks
     file: current-version
+    initial_version: 0.0.1
 - name: src-stemcell
   type: git
   source:
