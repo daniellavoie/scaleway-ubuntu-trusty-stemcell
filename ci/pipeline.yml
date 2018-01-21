@@ -30,6 +30,6 @@ resources:
   source:
     bucket: scaleway-ubunty-trusty-stemcell
     region_name: ca-central-1
-    regexp: *
+    regexp: "*"
     access_key_id: {{s3-artifact-key-id}}
     secret_access_key: {{s3-artifact-secret}}
