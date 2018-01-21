@@ -9,6 +9,6 @@ mkdir -p $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release/usr/bin
 
 mkdir artifact-stemcell
 
-tar czvf artifact-stemcell/scaleway-ubuntu-trusty-stemcell.tgz -C $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/ /usr/bin/
+tar czvf artifact-stemcell/scaleway-ubuntu-trusty-stemcell.tgz $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/ /usr/bin
 
 ls artifact-stemcell/
