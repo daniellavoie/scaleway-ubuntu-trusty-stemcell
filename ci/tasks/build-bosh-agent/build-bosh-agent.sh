@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 BOSH_AGENT_SRC=$GOPATH/src/github.com/cloudfoundry/bosh-agent
 STEMCELL_ARCHIVE=artifact-stemcell/
 STEMCELL_IAAS_IMAGE=artifact-stemcell/image
