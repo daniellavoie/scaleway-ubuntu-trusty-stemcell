@@ -7,7 +7,6 @@ jobs:
       trigger: true
     - get: src-bosh-agent
       trigger: true
-    - get: artifact-stemcell
   - task: build-bosh-agent
     file: src-stemcell/ci/tasks/build-bosh-agent/build-bosh-agent.yml
   - put: artifact-stemcell
@@ -33,3 +32,4 @@ resources:
     region_name: ca-central-1
     access_key_id: {{s3-artifact-key-id}}
     secret_access_key: {{s3-artifact-secret}}
+    versioned_file: scaleway-ubuntu-trusty-stemcell.tgz
