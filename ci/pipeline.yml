@@ -31,5 +31,5 @@ resources:
   source:
     bucket: scaleway-ubunty-trusty-stemcell
     regexp: scaleway-ubunty-trusty-stemcell.tgz
-    access_key_id: ACCESS-KEY
-    secret_access_key: SECRET
+    access_key_id: {{s3-artifact-key-id}}
+    secret_access_key: {{s3-artifact-key-secret}}
