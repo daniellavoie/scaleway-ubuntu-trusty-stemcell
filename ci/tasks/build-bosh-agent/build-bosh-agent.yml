@@ -8,6 +8,7 @@ image_resource:
     tag: '1.9'
 
 inputs:
+- name: version
 - name: src-stemcell
 - name: src-bosh-agent
 

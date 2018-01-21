@@ -3,6 +3,7 @@ jobs:
 - name: build-scaleway-ubuntu-trusty-stemcell
   plan:
   - aggregate:
+    - get: version
     - get: src-stemcell
       trigger: true
     - get: src-bosh-agent
@@ -15,6 +16,13 @@ jobs:
       acl: public-read
 
 resources:
+- name: version
+  type: semver
+  source:
+    driver: git
+    uri: {{github-lock-url}}
+    branch: locks
+    file: current-version
 - name: src-stemcell
   type: git
   source:

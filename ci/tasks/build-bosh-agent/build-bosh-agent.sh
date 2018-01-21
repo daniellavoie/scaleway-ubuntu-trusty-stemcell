@@ -1,10 +1,12 @@
 #!/bin/bash
 
 BOSH_AGENT_SRC=$GOPATH/src/github.com/cloudfoundry/bosh-agent
-STEMCELL_ARCHIVE=
+STEMCELL_ARCHIVE=artifact-stemcell/
 STEMCELL_IAAS_IMAGE=artifact-stemcell/image
 STEMCELL_MANIFEST=artifact-stemcell/stemcell.MF
 STEMCELL_PACKAGE_LIST=artifact-stemcell/stemcell_dpkg_l.txt
+
+VERSION="$(cat version/number)"
 
 buildBoshAgent() {
 	echo "Building Bosh Agent."
