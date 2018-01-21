@@ -7,41 +7,43 @@ STEMCELL_MANIFEST=artifact-stemcell/stemcell.MF
 STEMCELL_PACKAGE_LIST=artifact-stemcell/stemcell_dpkg_l.txt
 
 buildBoshAgent() {
-  go get -d github.com/cloudfoundry/bosh-agent
-  go get code.google.com/p/go.tools/cmd/vet
-  go get github.com/golang/lint/golint
+	echo "Building Bosh Agent."
 
-  ${BOSH_AGENT_SRC}/bin/build-linux-amd64
+	go get -d github.com/cloudfoundry/bosh-agent
+	go get code.google.com/p/go.tools/cmd/vet
+	go get github.com/golang/lint/golint
 
-  if [ ! $? -eq 0 ]
-  then
-    echo "Bosh Agent build failed. Exiting" >&2
-    exit 1
-  fi
+	${BOSH_AGENT_SRC}/bin/build-linux-amd64
+
+	if [ ! $? -eq 0 ]
+	then
+		echo "Bosh Agent build failed. Exiting" >&2
+		exit 1
+	fi
 }
 
 buildIaasImage() {
-  echo "Building Scaleway Image."
-  
-  mkdir -p ${BOSH_AGENT_SRC}/out/release/usr/bin
+	echo "Building Scaleway Image."
+	
+	mkdir -p ${BOSH_AGENT_SRC}/out/release/usr/bin
 
-  mv ${BOSH_OUT_FOLDER}/bosh-agent ${BOSH_OUT_FOLDER}/release/usr/bin/bosh-agent
+	mv ${BOSH_OUT_FOLDER}/bosh-agent ${BOSH_OUT_FOLDER}/release/usr/bin/bosh-agent
 
-  tar -czvf ${IAAS_IMAGE} --directory=${GOPATH}/src/github.com/cloudfoundry/bosh-agent/out/release/ /usr/bin
+	tar -czvf ${IAAS_IMAGE} --directory=${GOPATH}/src/github.com/cloudfoundry/bosh-agent/out/release/ /usr/bin
 
-  if [ ! $? -eq 0 ]
-  then
-    echo "Could not build Iaas Image. Exiting" >&2
-    exit 1
-  fi
+	if [ ! $? -eq 0 ]
+	then
+		echo "Could not build Iaas Image. Exiting" >&2
+		exit 1
+	fi
 }
 
 buildManifest() {
-  echo "Generating stemcell manifest."
+	echo "Generating stemcell manifest."
 
-  IMAGE_SHA1=$(sha1 ${IAAS_IMAGE})
+	IMAGE_SHA1=$(sha1 ${IAAS_IMAGE})
 
-  cat > ${STEMCELL_MANIFEST} <<EOF
+	cat > ${STEMCELL_MANIFEST} <<EOF
 ---
 name: bosh-scaleway-ubuntu-trusty-go_agent
 operating_system: ubuntu-trusty
@@ -52,14 +54,13 @@ cloud_properties:
   name: bosh-scaleway-ubuntu-trusty-go_agent
   version: '${VERSION}'
   region: par1
-EOF 
-
+EOF
 }
 
 buildPackageList() {
-  echo "Generating OS packages list manifest."
-  
-  cp src-stemcell/ci/tasks/stemcell_dpkg_l.txt  $STEMCELL_PACKAGE_LIST
+	echo "Generating OS packages list manifest."
+	
+	cp src-stemcell/ci/tasks/stemcell_dpkg_l.txt	$STEMCELL_PACKAGE_LIST
 }
 
 buildBoshAgent
