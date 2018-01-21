@@ -31,7 +31,7 @@ buildIaasImage() {
 
 	mv ${BOSH_AGENT_SRC}/out/bosh-agent ${BOSH_AGENT_SRC}/out/release/usr/bin/bosh-agent
 
-	tar -czvf ${IAAS_IMAGE} --directory=${GOPATH}/src/github.com/cloudfoundry/bosh-agent/out/release/ /usr/bin
+	tar -czvf ${IAAS_IMAGE} --directory=${BOSH_AGENT_SRC}/out/release/ /usr/bin
 
 	if [ ! $? -eq 0 ]
 	then
