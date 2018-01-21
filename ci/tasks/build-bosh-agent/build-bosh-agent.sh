@@ -31,13 +31,15 @@ buildIaasImage() {
 
 	mv ${BOSH_AGENT_SRC}/out/bosh-agent ${BOSH_AGENT_SRC}/out/release/usr/bin/bosh-agent
 
-	tar -czvf ${STEMCELL_IAAS_IMAGE} --directory=${BOSH_AGENT_SRC}/out/release/ /usr/bin
+	tar -czvf ${STEMCELL_IAAS_IMAGE}.tgz --directory=${BOSH_AGENT_SRC}/out/release/ /usr/bin
 
 	if [ ! $? -eq 0 ]
 	then
 		echo "Could not build Iaas Image. Exiting" >&2
 		exit 1
 	fi
+
+    mv ${STEMCELL_IAAS_IMAGE}.tgz ${STEMCELL_IAAS_IMAGE}
 }
 
 buildManifest() {
