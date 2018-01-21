@@ -1,0 +1,15 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+    tag: '1.9'
+
+inputs:
+- name: src-stemcell
+- name: src-bosh-agent
+
+run:
+  path: src-stemcell/ci/tasks/build-bosh-agent/build-bosh-agent.sh

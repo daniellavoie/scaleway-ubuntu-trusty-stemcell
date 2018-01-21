@@ -1,0 +1,1 @@
+# scaleway-ubuntu-trusty-stemcell
