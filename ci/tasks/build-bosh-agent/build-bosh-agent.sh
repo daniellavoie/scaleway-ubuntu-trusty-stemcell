@@ -31,7 +31,7 @@ buildIaasImage() {
 
 	mv ${BOSH_AGENT_SRC}/out/bosh-agent ${BOSH_AGENT_SRC}/out/release/usr/bin/bosh-agent
 
-	tar -czvf ${IAAS_IMAGE} --directory=${BOSH_AGENT_SRC}/out/release/ /usr/bin
+	tar -czvf ${STEMCELL_IAAS_IMAGE} --directory=${BOSH_AGENT_SRC}/out/release/ /usr/bin
 
 	if [ ! $? -eq 0 ]
 	then
@@ -43,7 +43,7 @@ buildIaasImage() {
 buildManifest() {
 	echo "Generating stemcell manifest."
 
-	IMAGE_SHA1=$(sha1 ${IAAS_IMAGE})
+	IMAGE_SHA1=$(sha1 ${STEMCELL_IAAS_IMAGE})
 
 	cat > ${STEMCELL_MANIFEST} <<EOF
 ---
@@ -62,7 +62,7 @@ EOF
 buildPackageList() {
 	echo "Generating OS packages list manifest."
 	
-	cp src-stemcell/ci/tasks/stemcell_dpkg_l.txt	$STEMCELL_PACKAGE_LIST
+	cp src-stemcell/ci/tasks/stemcell_dpkg_l.txt $STEMCELL_PACKAGE_LIST
 }
 
 buildBoshAgent
