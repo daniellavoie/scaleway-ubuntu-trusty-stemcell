@@ -68,7 +68,7 @@ EOF
 buildPackageList() {
 	echo "Generating OS packages list manifest."
 	
-	cp src-stemcell/ci/tasks/stemcell_dpkg_l.txt $STEMCELL_PACKAGE_LIST
+	cp src-stemcell/ci/tasks/build-stemcell/stemcell_dpkg_l.txt $STEMCELL_PACKAGE_LIST
 }
 
 buildBoshAgent
