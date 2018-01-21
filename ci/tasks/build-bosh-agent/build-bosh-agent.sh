@@ -5,7 +5,7 @@ go get github.com/golang/lint/golint
 
 $GOPATH/src/github.com/cloudfoundry/bosh-agent/bin/build-linux-amd64
 
-mkdikr -p $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release/usr/bin
+mkdir -p $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release/usr/bin
 mv $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/bosh-agent $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release/usr/bin/bosh-agent
 
 tar czvf artifact-stemcell/scaleway-ubunty-trusty-stemcell.tgz $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release
