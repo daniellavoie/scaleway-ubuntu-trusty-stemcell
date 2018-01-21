@@ -11,6 +11,6 @@ mv $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/bosh-agent $GOPATH/src/git
 
 mkdir artifact-stemcell
 
-tar czvf artifact-stemcell/scaleway-ubunty-trusty-stemcell.tgz $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release
+tar czvf artifact-stemcell/scaleway-ubuntu-trusty-stemcell.tgz $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release
 
 ls artifact-stemcell/

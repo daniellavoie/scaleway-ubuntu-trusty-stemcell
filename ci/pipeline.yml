@@ -11,7 +11,7 @@ jobs:
     file: src-stemcell/ci/tasks/build-bosh-agent/build-bosh-agent.yml
   - put: artifact-stemcell
     params:
-      file: artifact-stemcell/scaleway-ubunty-trusty-stemcell.tgz
+      file: artifact-stemcell/scaleway-ubuntu-trusty-stemcell.tgz
       acl: public-read
 
 resources:
@@ -30,6 +30,6 @@ resources:
   source:
     bucket: scaleway-ubunty-trusty-stemcell
     region_name: ca-central-1
-    regexp: scaleway-ubunty-trusty-stemcell.tgz
+    regexp: *
     access_key_id: {{s3-artifact-key-id}}
     secret_access_key: {{s3-artifact-secret}}
