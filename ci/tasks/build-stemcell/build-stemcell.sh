@@ -3,10 +3,12 @@
 set -x
 
 BOSH_AGENT_SRC=$GOPATH/src/github.com/cloudfoundry/bosh-agent
-STEMCELL_ARCHIVE=artifact-stemcell/
+
 STEMCELL_IAAS_IMAGE=artifact-stemcell/image
 STEMCELL_MANIFEST=artifact-stemcell/stemcell.MF
 STEMCELL_PACKAGE_LIST=artifact-stemcell/stemcell_dpkg_l.txt
+
+STEMCELL_ARCHIVE=artifact-stemcell/scaleway-ubuntu-trusty-stemcell.tgz
 
 VERSION="$(cat version/number)"
 
@@ -71,7 +73,14 @@ buildPackageList() {
 	cp src-stemcell/ci/tasks/build-stemcell/stemcell_dpkg_l.txt $STEMCELL_PACKAGE_LIST
 }
 
+buildStemcellArchive() {
+	echo "Building stemcell archive"
+	
+	tar -czvf ${STEMCELL_ARCHIVE} ${STEMCELL_IAAS_IMAGE} ${STEMCELL_MANIFEST} ${STEMCELL_PACKAGE_LIST}
+}
+
 buildBoshAgent
 buildIaasImage
 buildManifest
 buildPackageList
+buildStemcellArchive
