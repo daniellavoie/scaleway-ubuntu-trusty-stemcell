@@ -1,13 +1,13 @@
 ---
 jobs:
-- name: build-bosh-agent
+- name: build-scaleway-ubuntu-trusty-stemcell
   plan:
   - aggregate:
     - get: src-stemcell
       trigger: true
     - get: src-bosh-agent
       trigger: true
-  - task: build-bosh-agent
+  - task: build-stemcell
     file: src-stemcell/ci/tasks/build-bosh-agent/build-bosh-agent.yml
   - put: artifact-stemcell
     params:
