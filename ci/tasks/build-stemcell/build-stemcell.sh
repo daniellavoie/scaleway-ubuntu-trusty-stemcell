@@ -57,7 +57,7 @@ buildManifest() {
 ---
 name: bosh-scaleway-ubuntu-trusty-go_agent
 operating_system: ubuntu-trusty
-version: '3033'
+version: '${VERSION}'
 sha1: ${IMAGE_SHA1}
 bosh_protocol: 1
 cloud_properties:
@@ -75,7 +75,7 @@ buildPackageList() {
 
 buildStemcellArchive() {
 	echo "Building stemcell archive"
-	
+
 	tar -czvf ${STEMCELL_ARCHIVE} ${STEMCELL_IAAS_IMAGE} ${STEMCELL_MANIFEST} ${STEMCELL_PACKAGE_LIST}
 }
 
