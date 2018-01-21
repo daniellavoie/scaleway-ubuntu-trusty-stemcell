@@ -76,7 +76,7 @@ buildPackageList() {
 buildStemcellArchive() {
 	echo "Building stemcell archive"
 
-	tar -czvf ${STEMCELL_ARCHIVE} ${STEMCELL_IAAS_IMAGE} ${STEMCELL_MANIFEST} ${STEMCELL_PACKAGE_LIST}
+	tar -czvf ${STEMCELL_ARCHIVE} ${STEMCELL_IAAS_IMAGE} ${STEMCELL_MANIFEST} ${STEMCELL_PACKAGE_LIST} -C .
 }
 
 buildBoshAgent
