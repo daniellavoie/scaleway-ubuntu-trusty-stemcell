@@ -1,14 +1,68 @@
 #!/bin/bash
-go get -d github.com/cloudfoundry/bosh-agent
-go get code.google.com/p/go.tools/cmd/vet
-go get github.com/golang/lint/golint
 
-$GOPATH/src/github.com/cloudfoundry/bosh-agent/bin/build-linux-amd64
+BOSH_AGENT_SRC=$GOPATH/src/github.com/cloudfoundry/bosh-agent
+STEMCELL_ARCHIVE=
+STEMCELL_IAAS_IMAGE=artifact-stemcell/image
+STEMCELL_MANIFEST=artifact-stemcell/stemcell.MF
+STEMCELL_PACKAGE_LIST=artifact-stemcell/stemcell_dpkg_l.txt
 
-mkdir -p $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release/usr/bin
+buildBoshAgent() {
+  go get -d github.com/cloudfoundry/bosh-agent
+  go get code.google.com/p/go.tools/cmd/vet
+  go get github.com/golang/lint/golint
 
-mv $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/bosh-agent $GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release/usr/bin/bosh-agent
+  ${BOSH_AGENT_SRC}/bin/build-linux-amd64
 
-tar -czvf artifact-stemcell/scaleway-ubuntu-trusty-stemcell.tgz --directory=$GOPATH/src/github.com/cloudfoundry/bosh-agent/out/release/ /usr/bin
+  if [ ! $? -eq 0 ]
+  then
+    echo "Bosh Agent build failed. Exiting" >&2
+    exit 1
+  fi
+}
 
-ls artifact-stemcell/
+buildIaasImage() {
+  echo "Building Scaleway Image."
+  
+  mkdir -p ${BOSH_AGENT_SRC}/out/release/usr/bin
+
+  mv ${BOSH_OUT_FOLDER}/bosh-agent ${BOSH_OUT_FOLDER}/release/usr/bin/bosh-agent
+
+  tar -czvf ${IAAS_IMAGE} --directory=${GOPATH}/src/github.com/cloudfoundry/bosh-agent/out/release/ /usr/bin
+
+  if [ ! $? -eq 0 ]
+  then
+    echo "Could not build Iaas Image. Exiting" >&2
+    exit 1
+  fi
+}
+
+buildManifest() {
+  echo "Generating stemcell manifest."
+
+  IMAGE_SHA1=$(sha1 ${IAAS_IMAGE})
+
+  cat > ${STEMCELL_MANIFEST} <<EOF
+---
+name: bosh-scaleway-ubuntu-trusty-go_agent
+operating_system: ubuntu-trusty
+version: '3033'
+sha1: ${IMAGE_SHA1}
+bosh_protocol: 1
+cloud_properties:
+  name: bosh-scaleway-ubuntu-trusty-go_agent
+  version: '${VERSION}'
+  region: par1
+EOF 
+
+}
+
+buildPackageList() {
+  echo "Generating OS packages list manifest."
+  
+  cp src-stemcell/ci/tasks/stemcell_dpkg_l.txt  $STEMCELL_PACKAGE_LIST
+}
+
+buildBoshAgent
+buildIaasImage
+buildManifest
+buildPackageList
