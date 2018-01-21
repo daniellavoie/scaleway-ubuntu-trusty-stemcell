@@ -29,7 +29,7 @@ buildIaasImage() {
 	
 	mkdir -p ${BOSH_AGENT_SRC}/out/release/usr/bin
 
-	mv ${BOSH_OUT_FOLDER}/bosh-agent ${BOSH_OUT_FOLDER}/release/usr/bin/bosh-agent
+	mv ${BOSH_AGENT_SRC}/out/bosh-agent ${BOSH_AGENT_SRC}/out/release/usr/bin/bosh-agent
 
 	tar -czvf ${IAAS_IMAGE} --directory=${GOPATH}/src/github.com/cloudfoundry/bosh-agent/out/release/ /usr/bin
 
