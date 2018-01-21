@@ -16,4 +16,4 @@ outputs:
 - name: artifact-stemcell
 
 run:
-  path: src-stemcell/ci/tasks/build-bosh-agent/build-bosh-agent.sh
+  path: src-stemcell/ci/tasks/build-bosh-agent/build-stemcell.sh

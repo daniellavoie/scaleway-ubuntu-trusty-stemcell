@@ -9,7 +9,7 @@ jobs:
     - get: src-bosh-agent
       trigger: true
   - task: build-stemcell
-    file: src-stemcell/ci/tasks/build-bosh-agent/build-bosh-agent.yml
+    file: src-stemcell/ci/tasks/build-stemcell/build-stemcell.yml
   - put: artifact-stemcell
     params:
       file: "artifact-stemcell/scaleway-ubuntu-trusty-stemcell.tgz"
