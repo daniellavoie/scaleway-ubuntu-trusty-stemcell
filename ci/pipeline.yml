@@ -7,8 +7,13 @@ jobs:
       trigger: true
     - get: src-bosh-agent
       trigger: true
+    - get: artifact-stemcell
   - task: build-bosh-agent
     file: src-stemcell/ci/tasks/build-bosh-agent/build-bosh-agent.yml
+  - put: artifact-stemcell
+    params:
+      file: artifact-stemcell/scaleway-ubunty-trusty-stemcell.tgz
+      acl: public-read
 
 resources:
 - name: src-stemcell
@@ -21,3 +26,10 @@ resources:
   source:
     uri: https://github.com/cloudfoundry/bosh-agent
     branch: master
+- name: artifact-stemcell
+  type: s3
+  source:
+    bucket: scaleway-ubunty-trusty-stemcell
+    regexp: scaleway-ubunty-trusty-stemcell.tgz
+    access_key_id: ACCESS-KEY
+    secret_access_key: SECRET
