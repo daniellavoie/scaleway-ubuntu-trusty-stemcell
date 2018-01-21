@@ -28,12 +28,14 @@ buildBoshAgent() {
 
 buildIaasImage() {
 	echo "Building Scaleway Image."
+    echo " src : ${BOSH_AGENT_SRC}"
+    echo " "
 	
 	mkdir -p ${BOSH_AGENT_SRC}/out/release/usr/bin
 
 	mv ${BOSH_AGENT_SRC}/out/bosh-agent ${BOSH_AGENT_SRC}/out/release/usr/bin/bosh-agent
 
-	tar -czvf ${STEMCELL_IAAS_IMAGE}.tgz --directory=${BOSH_AGENT_SRC}/out/release/ /usr/bin
+	tar -czvf ${STEMCELL_IAAS_IMAGE}.tgz ${BOSH_AGENT_SRC}/out/release/ -C /usr/bin
 
 	if [ ! $? -eq 0 ]
 	then
