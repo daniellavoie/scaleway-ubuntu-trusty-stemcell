@@ -51,7 +51,7 @@ buildIaasImage() {
 buildManifest() {
 	echo "Generating stemcell manifest."
 
-	IMAGE_SHA1=$(sha1 ${STEMCELL_IAAS_IMAGE})
+	IMAGE_SHA1=$(sha1sum ${STEMCELL_IAAS_IMAGE})
 
 	cat > ${STEMCELL_MANIFEST} <<EOF
 ---
